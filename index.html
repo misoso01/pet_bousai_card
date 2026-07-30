@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小金井市ペット防災カルテ作成アプリ（完全版）</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --accent: #ff9800;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #cccccc;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        .step-section {
+            display: none;
+        }
+        .step-section.active {
+            display: block;
+        }
+        h2.step-title {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+            background: #fafafa;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+        .checkbox-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        .note {
+            font-size: 0.85rem;
+            color: #d32f2f;
+            margin-top: 4px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #1b5e20;
+        }
+        button.secondary {
+            background-color: #757575;
+        }
+        button.secondary:hover {
+            background-color: #616161;
+        }
+
+        /* 結果画面のスタイル */
+        #result-section {
+            display: none;
+        }
+        .card-print-area {
+            background: #fff;
+            border: 2px dashed #333;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+            position: relative;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .badge {
+            background: var(--accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .photo-box {
+            border: 1px solid #ccc;
+            background: #eee;
+            padding: 5px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .photo-box p {
+            font-size: 0.8rem;
+            margin: 4px 0 0 0;
+            color: #555;
+            font-weight: bold;
+        }
+        .photo-placeholder {
+            width: 100%;
+            height: 110px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #666;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .blank-line {
+            display: inline-block;
+            border-bottom: 1px solid #333;
+            min-width: 150px;
+            height: 1.2em;
+        }
+        .alert-box {
+            background-color: #ffebee;
+            border-left: 5px solid #d32f2f;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .alert-box h3 {
+            margin-top: 0;
+            color: #d32f2f;
+        }
+        ul.checklist-output {
+            list-style: none;
+            padding: 0;
+        }
+        ul.checklist-output li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        ul.checklist-output li::before {
+            content: "☐ ";
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-right: 8px;
+        }
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; padding: 0; max-width: 100%; }
+            .no-print { display: none; }
+            .card-print-area { border: 2px solid #000; break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>小金井市 ペット防災カルテ作成アプリ</h1>
+    <p class="subtitle">ペット写真2枚・家族写真1枚・フード写真1枚対応 ＆ 完全自衛モード搭載</p>
+
+    <form id="bousaiForm">
+        
+        <div class="step-section active" id="step1">
+            <h2 class="step-title">STEP 1: ペットの基本情報 ＆ 写真登録（1 / 5）</h2>
+            
+            <div class="form-group">
+                <label>1. ペットの種類</label>
+                <select id="petType" required>
+                    <option value="犬">犬</option>
+                    <option value="猫">猫</option>
+                    <option value="鳥類">鳥類（インコ・文鳥など）</option>
+                    <option value="小動物・小型哺乳類">小動物・小型哺乳類（ウサギ・ハムスター等）</option>
+                    <option value="爬虫類・両生類">爬虫類・両生類（トカゲ・カメ等）</option>
+                    <option value="魚類・水生生物">魚類・水生生物（熱帯魚・金魚等）</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>2. 品種・具体的な種類</label>
+                <input type="text" id="petBreed" placeholder="例：柴犬、セキセイインコ、ハリネズミ" required>
+            </div>
+
+            <div class="form-group">
+                <label>3. ペットの名前</label>
+                <input type="text" id="petName" placeholder="例：タロウ" required>
+            </div>
+
+            <div class="form-group">
+                <label>4. 性別・去勢避妊状況</label>
+                <select id="petGender">
+                    <option value="雄（去勢済）">雄（去勢済）</option>
+                    <option value="雄（未去勢）">雄（未去勢）</option>
+                    <option value="雌（避妊済）">雌（避妊済）</option>
+                    <option value="雌（未避妊）">雌（未避妊）</option>
+                    <option value="不明・対象外">不明・対象外</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>5. 年齢</label>
+                <input type="text" id="petAge" placeholder="例：5歳、生後6ヶ月" required>
+            </div>
+
+            <div class="form-group">
+                <label>6. 体重（0.1kg単位で選択）</label>
+                <select id="petWeight" required></select>
+            </div>
+
+            <div class="form-group">
+                <label>7. 毛色・身体的特徴</label>
+                <input type="text" id="petFeature" placeholder="例：茶色、右耳に黒い斑点あり">
+            </div>
+
+            <hr style="margin: 25px 0; border: 0; border-top: 1px solid #ddd;">
+
+            <h3 style="color: var(--primary); font-size: 1rem; margin-bottom: 15px;">📷 各種写真のアップロード（すべて任意）</h3>
+
+            <div class="form-group">
+                <label>【写真1】ペットの写真 ①（顔・アップ・特徴がわかるもの）</label>
+                <input type="file" id="petPhoto1Input" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>【写真2】ペットの写真 ②（全身・別の角度の写真）</label>
+                <input type="file" id="petPhoto2Input" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>【写真3】「ペットと家族」の写っている写真（所有者・絆の証明用）</label>
+                <input type="file" id="familyPhotoInput" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>【写真4】普段食べている「フードのパッケージ」の写真（成分・銘柄確認用）</label>
+                <input type="file" id="foodPhotoInput" accept="image/*">
+            </div>
+
+            <div class="btn-container">
+                <span></span>
+                <button type="button" onclick="nextStep(2)">次へ（健康・食事へ）</button>
+            </div>
+        </div>
+
+        <div class="step-section" id="step2">
+            <h2 class="step-title">STEP 2: 所有者明示・健康管理（2 / 5）</h2>
+
+            <div class="form-group">
+                <label>8. 所有者明示の状況</label>
+                <select id="ownerIdentification">
+                    <option value="マイクロチップ・迷子札・鑑札すべてあり">マイクロチップ・迷子札・鑑札すべてあり</option>
+                    <option value="マイクロチップのみ装着">マイクロチップのみ装着</option>
+                    <option value="迷子札・ケージタグのみ有">迷子札・ケージタグのみ有</option>
+                    <option value="未実施（写真や特徴のみ）">未実施（写真・特徴で識別）</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>9. 主食（フード）の名称・種類</label>
+                <input type="text" id="petFoodName" placeholder="例：〇〇ドライフード、ペレット、生餌など" required>
+            </div>
+
+            <div class="form-group">
+                <label>10. 1日に食べるフードの量（g単位で選択）</label>
+                <select id="petFoodAmount" required></select>
+            </div>
+
+            <div class="form-group">
+                <label>11. フードの自宅備蓄量</label>
+                <select id="foodStock">
+                    <option value="2週間分以上">2週間分以上ストックあり</option>
+                    <option value="5〜7日分程度">5〜7日分程度</option>
+                    <option value="3日分未満（不足）">3日分未満（※要準備）</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>12. アレルギー（複数選択可能）</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="allergy" value="牛肉アレルギー"> 牛肉</label>
+                    <label><input type="checkbox" name="allergy" value="豚肉アレルギー"> 豚肉</label>
+                    <label><input type="checkbox" name="allergy" value="鶏肉アレルギー"> 鶏肉</label>
+                    <label><input type="checkbox" name="allergy" value="乳製品アレルギー"> 乳製品</label>
+                    <label><input type="checkbox" name="allergy" value="大豆・穀物アレルギー"> 大豆・穀物</label>
+                    <label><input type="checkbox" name="allergy" value="魚介類アレルギー"> 魚介類</label>
+                    <label><input type="checkbox" name="allergy" value="特になし" checked> 特になし</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>13. 持病・常備薬・サプリメント</label>
+                <textarea id="petMedication" placeholder="例：心臓病の薬を朝夕1錠ずつ服用、ビタミン剤添加など（なければ「なし」）"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>14. かかりつけの動物病院</label>
+                <input type="text" id="petHospital" placeholder="例：小金井市内の〇〇動物病院 042-XXX-XXXX">
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="secondary" onclick="prevStep(1)">戻る</button>
+                <button type="button" onclick="nextStep(3)">次へ（温湿度・環境へ）</button>
+            </div>
+        </div>
+
+        <div class="step-section" id="step3">
+            <h2 class="step-title">STEP 3: 温湿度・環境・キャリー（3 / 5）</h2>
+
+            <div class="form-group">
+                <label>15. 適正な温度・湿度の管理（※エキゾチック重要）</label>
+                <select id="tempControl">
+                    <option value="常温で問題なし（犬猫等）">常温で問題なし（犬・猫など）</option>
+                    <option value="要保温（ヒーター・カイロ必須）">要保温（ヒーター・カイロ必須）</option>
+                    <option value="要保冷・冷却管理">要保冷・冷却管理</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>16. 停電時の「保温・保冷」資材の備え</label>
+                <select id="warmStock">
+                    <option value="ポータブル電源・カイロ・断熱シート完備">ポータブル電源・カイロ・断熱シート完備</option>
+                    <option value="使い捨てカイロや断熱毛布はある">使い捨てカイロや断熱毛布はある</option>
+                    <option value="特にない">特にない（※要準備）</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>17. 避難用キャリー・ケージの有無</label>
+                <select id="cageStatus">
+                    <option value="専用キャリーがあり、普段から慣れている">専用キャリーがあり、慣れている</option>
+                    <option value="所有しているが、入るのを嫌がる・暴れる">所有しているが、入るのを嫌がる</option>
+                    <option value="持っていない">持っていない</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>18. 避難所の光や音（ストレス）に対する反応</label>
+                <select id="stressReaction">
+                    <option value="環境変化に比較的強い">環境変化に強い</option>
+                    <option value="暗幕やカバーをかければ落ち着く">暗幕やカバーをかければ落ち着く</option>
+                    <option value="音や光でパニック・呼び鳴き・自傷の恐れあり">パニック・叫び声を起こしやすい</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>19. 脱走リスク・ハンドリングの注意点</label>
+                <input type="text" id="escapeRisk" placeholder="例：隙間から脱走しやすい、触ると咬むことがある等">
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="secondary" onclick="prevStep(2)">戻る</button>
+                <button type="button" onclick="nextStep(4)">次へ（しつけ・避難方針へ）</button>
+            </div>
+        </div>
+
+        <div class="step-section" id="step4">
+            <h2 class="step-title">STEP 4: しつけ・複数飼育・避難方針（4 / 5）</h2>
+
+            <div class="form-group">
+                <label>20. トイレ・排泄のしつけ状況</label>
+                <select id="toiletTraining">
+                    <option value="決まった場所（シートやトイレ砂）で完璧にできる">決まった場所でできる</option>
+                    <option value="失敗することもある・不安定">失敗することもある</option>
+                    <option value="指定場所以外でする">指定場所以外でする</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>21. 他に同居しているペットの有無（複数飼育）</label>
+                <input type="text" id="otherPets" placeholder="例：ほかに猫1頭あり（または「なし」）">
+            </div>
+
+            <div class="form-group">
+                <label>22. 想定している避難のカタチ</label>
+                <select id="evacuationPlan">
+                    <option value="小金井市の指定避難所（同行避難）">小金井市の指定避難所（同行避難）</option>
+                    <option value="在宅避難（自宅の安全確保）">在宅避難（自宅）</option>
+                    <option value="親戚・知人宅 / 車中避難">親戚・知人宅 / 車中避難</option>
+                </select>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="secondary" onclick="prevStep(3)">戻る</button>
+                <button type="button" onclick="nextStep(5)">次へ（飼い主情報へ）</button>
+            </div>
+        </div>
+
+        <div class="step-section" id="step5">
+            <h2 class="step-title">STEP 5: 飼い主・連絡先情報（5 / 5：※すべて任意）</h2>
+            <p class="subtitle" style="text-align: left; margin-bottom: 15px;">
+                未入力のまま進むと、出力シートに**手書き用の空欄枠**が作成されます。
+            </p>
+
+            <div class="form-group">
+                <label>23. 飼い主氏名（任意）</label>
+                <input type="text" id="ownerName" placeholder="例：山田 太郎">
+            </div>
+
+            <div class="form-group">
+                <label>24. 緊急連絡先電話番号（任意）</label>
+                <input type="text" id="ownerPhone" placeholder="例：090-XXXX-XXXX">
+            </div>
+
+            <div class="form-group">
+                <label>25. 避難所内での滞在予定場所（任意）</label>
+                <input type="text" id="evacLocation" placeholder="例：避難所内テントA-3、または自家用車内">
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="secondary" onclick="prevStep(4)">戻る</button>
+                <button type="button" style="background-color: #d32f2f;" onclick="generateResults()">防災カルテ＆チェックリストを作成する！</button>
+            </div>
+        </div>
+
+    </form>
+
+    <div id="result-section">
+        <h2 style="color: var(--primary); text-align: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px;">
+            🎉 ペット専用 防災カルテが完成しました！
+        </h2>
+        
+        <div class="no-print" style="text-align: center; margin-bottom: 20px;">
+            <button onclick="window.print()" style="font-size: 1.1rem; padding: 12px 30px; background-color: #d32f2f;">
+                🖨️ このシートを印刷する（ケージ掲示用）
+            </button>
+        </div>
+
+        <div class="alert-box" id="adviceContainer">
+            <h3>⚠️ ガイドラインに基づく「不足部分・自衛アドバイス」</h3>
+            <div id="adviceContent"></div>
+        </div>
+
+        <div class="card-print-area">
+            <div class="card-header">
+                <div>
+                    <span class="badge" id="resTypeBadge">犬</span>
+                    <strong style="font-size: 1.2rem; margin-left: 8px;">小金井市 避難所用ケージ掲示シート</strong>
+                </div>
+                <div>ID: <span id="resId">PET-01</span></div>
+            </div>
+
+            <div class="card-grid">
+                <div class="photo-box">
+                    <div class="photo-placeholder" id="resPhoto1Area">写真未登録</div>
+                    <p>ペット写真①(顔)</p>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder" id="resPhoto2Area">写真未登録</div>
+                    <p>ペット写真②(全身)</p>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder" id="resFamilyPhotoArea">写真未登録</div>
+                    <p>ペット＆家族写真</p>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder" id="resFoodPhotoArea">写真未登録</div>
+                    <p>フードパッケージ写真</p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <table style="width: 100%; font-size: 0.92rem; border-collapse: collapse; background: #fdfdfd; border: 1px solid #ddd; padding: 5px;">
+                    <tr>
+                        <td style="font-weight: bold; width: 30%; padding: 4px;">名前・種別：</td>
+                        <td id="resNameBreed">-</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 4px;">性別・年齢：</td>
+                        <td id="resGenderAge">-</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 4px;">体重・特徴：</td>
+                        <td id="resWeight">-</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 4px;">所有者明示：</td>
+                        <td id="resIden">-</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 4px;">同居ペット：</td>
+                        <td id="resOtherPets">-</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="background: #f9f9f9; padding: 10px; border-radius: 4px; margin-bottom: 12px; font-size: 0.92rem;">
+                <strong>■ 飼い主・連絡先情報（※手書き追記可）</strong><br>
+                ・飼い主氏名： <span id="resOwnerName" class="blank-line"></span><br>
+                ・連絡先TEL： <span id="resOwnerPhone" class="blank-line"></span><br>
+                ・避難場所： <span id="resEvacLoc" class="blank-line"></span>
+            </div>
+
+            <div style="background: #f9f9f9; padding: 10px; border-radius: 4px; margin-bottom: 12px; font-size: 0.92rem;">
+                <strong>■ 健康・給餌・管理情報</strong><br>
+                ・主食フード： <span id="resFood">-</span><br>
+                ・1日の給餌量： <span id="resFoodAmount">-</span><br>
+                ・アレルギー： <span id="resAllergy">-</span><br>
+                ・持病 / 投薬： <span id="resMed">-</span><br>
+                ・かかりつけ： <span id="resHosp">-</span>
+            </div>
+
+            <div style="background: #fff3e0; padding: 10px; border-radius: 4px; border: 1px solid #ffe0b2; font-size: 0.92rem;">
+                <strong>■ スタッフ・他の方への配慮事項（接し方）</strong><br>
+                ・温度管理： <span id="resTemp">-</span><br>
+                ・ストレス/音： <span id="resStress">-</span><br>
+                ・脱走・扱い： <span id="resEscape">-</span><br>
+                ・トイレ状況： <span id="resToilet">-</span>
+            </div>
+        </div>
+
+        <div class="no-print" style="text-align: center; margin-top: 30px;">
+            <button class="secondary" onclick="location.reload()">🔄 最初からやり直す</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // 写真データを保持する変数
+    let photo1Url = "";
+    let photo2Url = "";
+    let familyPhotoUrl = "";
+    let foodPhotoUrl = "";
+
+    // 起動時にプルダウン（体重・フード量）を自動生成
+    window.addEventListener('DOMContentLoaded', () => {
+        // 体重のプルダウン生成 (0.1kg 〜 50.0kg)
+        const weightSelect = document.getElementById('petWeight');
+        weightSelect.innerHTML = "";
+        for (let i = 1; i <= 500; i++) {
+            let val = (i / 10).toFixed(1);
+            let opt = document.createElement('option');
+            opt.value = val + " kg";
+            opt.innerText = val + " kg";
+            if (val === "5.0") opt.selected = true;
+            weightSelect.appendChild(opt);
+        }
+
+        // 1日のフード量のプルダウン生成
+        const foodAmountSelect = document.getElementById('petFoodAmount');
+        foodAmountSelect.innerHTML = "";
+        for (let g = 1; g <= 300; g++) {
+            let opt = document.createElement('option');
+            opt.value = g + " g";
+            opt.innerText = g + " g";
+            if (g === 50) opt.selected = true;
+            foodAmountSelect.appendChild(opt);
+        }
+        for (let g = 320; g <= 1000; g += 20) {
+            let opt = document.createElement('option');
+            opt.value = g + " g";
+            opt.innerText = g + " g";
+            foodAmountSelect.appendChild(opt);
+        }
+    });
+
+    // 写真アップロードのプレビューハンドラ設定
+    function setupPhotoListener(inputId, callback) {
+        document.getElementById(inputId).addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    callback(event.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    setupPhotoListener('petPhoto1Input', (url) => { photo1Url = url; });
+    setupPhotoListener('petPhoto2Input', (url) => { photo2Url = url; });
+    setupPhotoListener('familyPhotoInput', (url) => { familyPhotoUrl = url; });
+    setupPhotoListener('foodPhotoInput', (url) => { foodPhotoUrl = url; });
+
+    function nextStep(stepNum) {
+        document.querySelectorAll('.step-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('step' + stepNum).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function prevStep(stepNum) {
+        document.querySelectorAll('.step-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('step' + stepNum).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function generateResults() {
+        // 入力値の取得
+        const type = document.getElementById('petType').value;
+        const breed = document.getElementById('petBreed').value;
+        const name = document.getElementById('petName').value;
+        const gender = document.getElementById('petGender').value;
+        const age = document.getElementById('petAge').value;
+        const weight = document.getElementById('petWeight').value;
+        const feature = document.getElementById('petFeature').value;
+        const iden = document.getElementById('ownerIdentification').value;
+        const foodName = document.getElementById('petFoodName').value;
+        const foodAmount = document.getElementById('petFoodAmount').value;
+        const foodStock = document.getElementById('foodStock').value;
+        
+        // アレルギーの複数選択チェックボックスの集計
+        const allergyCheckboxes = document.querySelectorAll('input[name="allergy"]:checked');
+        let allergyList = [];
+        allergyCheckboxes.forEach(cb => allergyList.push(cb.value));
+        const allergyStr = allergyList.length > 0 ? allergyList.join(', ') : '特になし';
+
+        const med = document.getElementById('petMedication').value;
+        const hosp = document.getElementById('petHospital').value;
+        const temp = document.getElementById('tempControl').value;
+        const cage = document.getElementById('cageStatus').value;
+        const stress = document.getElementById('stressReaction').value;
+        const escape = document.getElementById('escapeRisk').value;
+        const toilet = document.getElementById('toiletTraining').value;
+        const otherPets = document.getElementById('otherPets').value;
+        
+        const ownerName = document.getElementById('ownerName').value;
+        const ownerPhone = document.getElementById('ownerPhone').value;
+        const evacLoc = document.getElementById('evacLocation').value;
+
+        // 画面切り替え
+        document.getElementById('bousaiForm').style.display = 'none';
+        document.getElementById('result-section').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // カードへの反映
+        document.getElementById('resTypeBadge').innerText = type;
+        document.getElementById('resId').innerText = 'KGN-' + Math.floor(1000 + Math.random() * 9000);
+        document.getElementById('resNameBreed').innerText = `${name} (${type} / ${breed})`;
+        document.getElementById('resGenderAge').innerText = `${gender} / ${age}`;
+        document.getElementById('resWeight').innerText = feature ? `${weight} [特徴: ${feature}]` : weight;
+        document.getElementById('resIden').innerText = iden;
+        document.getElementById('resOtherPets').innerText = otherPets ? otherPets : 'なし';
+
+        // 4枚の写真反映
+        const p1Area = document.getElementById('resPhoto1Area');
+        p1Area.innerHTML = photo1Url ? `<img src="${photo1Url}" alt="写真1">` : "未登録";
+
+        const p2Area = document.getElementById('resPhoto2Area');
+        p2Area.innerHTML = photo2Url ? `<img src="${photo2Url}" alt="写真2">` : "未登録";
+
+        const pFamilyArea = document.getElementById('resFamilyPhotoArea');
+        pFamilyArea.innerHTML = familyPhotoUrl ? `<img src="${familyPhotoUrl}" alt="家族写真">` : "未登録";
+
+        const pFoodArea = document.getElementById('resFoodPhotoArea');
+        pFoodArea.innerHTML = foodPhotoUrl ? `<img src="${foodPhotoUrl}" alt="フード写真">` : "未登録";
+
+        // 連絡先
+        document.getElementById('resOwnerName').innerHTML = ownerName ? `<strong>${ownerName}</strong>` : '';
+        document.getElementById('resOwnerPhone').innerHTML = ownerPhone ? `<strong>${ownerPhone}</strong>` : '';
+        document.getElementById('resEvacLoc').innerHTML = evacLoc ? `<strong>${evacLoc}</strong>` : '';
+
+        // 健康・給餌
+        document.getElementById('resFood').innerText = foodName;
+        document.getElementById('resFoodAmount').innerText = foodAmount;
+        document.getElementById('resAllergy').innerText = allergyStr;
+        document.getElementById('resMed').innerText = med;
+        document.getElementById('resHosp').innerText = hosp;
+
+        // 注意事項
+        document.getElementById('resTemp').innerText = temp;
+        document.getElementById('resStress').innerText = stress;
+        document.getElementById('resEscape').innerText = escape;
+        document.getElementById('resToilet').innerText = toilet;
+
+        // --- ガイドラインに基づく自衛アドバイス生成 ---
+        let adviceHtml = "";
+        const isExotic = (type !== "犬" && type !== "猫");
+
+        if (isExotic) {
+            adviceHtml += `<p style="color: #d32f2f; font-weight: bold;">🚨【エキゾチックアニマル完全自衛モード】</p>`;
+            adviceHtml += `<p>鳥類・小動物・爬虫類などは、避難所や行政からのフード・保温資材支援がほぼ届きません。完全自衛が必要です。</p>`;
+        }
+
+        adviceHtml += `<h4 style="margin: 10px 0 5px 0; color: #333;">📋 優先して準備すべき項目：</h4><ul class="checklist-output">`;
+
+        if (foodStock.includes("3日分未満")) {
+            adviceHtml += `<li><strong>フードの備蓄増強：</strong> 1日あたり「${foodAmount}」消費するため、最低5日分（推奨7日分以上、エキゾチックは2週間分）以上のストックを必ず確保してください。パッケージ写真が登録されているため、避難時や物資調達時に同じ銘柄を円滑に指示できます。</li>`;
+        } else {
+            adviceHtml += `<li><strong>フード備蓄：</strong> 現在のストック状況は良好です。パッケージ写真もあるため、万が一の際の買い増しや支援物資の選択時に役立ちます。</li>`;
+        }
+
+        if (cage.includes("嫌がる") || cage.includes("持っていない")) {
+            adviceHtml += `<li><strong>キャリー/ケージ慣らしトレーニング：</strong> 避難所での生活に備え、今からおやつ等でハウスに入る練習をしてください。</li>`;
+        }
+
+        if (isExotic || temp.includes("要保温")) {
+            adviceHtml += `<li><strong>電源不要の保温・保冷体制：</strong> 避難所に電源はありません。使い捨てカイロや断熱シートを準備してください。</li>`;
+        }
+
+        adviceHtml += `</ul>`;
+        document.getElementById('adviceContent').innerHTML = adviceHtml;
+    }
+</script>
+
+</body>
+</html>
