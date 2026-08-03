@@ -739,26 +739,27 @@
         });
         let allergyText = checkedAllergies.length > 0 ? checkedAllergies.join('、') : "特になし";
 
-        // スコア集計
-        const boolRadios = document.querySelectorAll('#step2 .diag-item[data-type="bool"] input[type="radio"]:checked');
+// スコア集計（修正版）
+        const boolItems = document.querySelectorAll('#step2 .diag-item[data-type="bool"]');
         const amountSelects = document.querySelectorAll('#step2 .diag-item[data-type="amount"] select');
 
         let totalPoints = 0;
-        let maxPoints = (boolRadios.length + amountSelects.length) * 2;
+        let maxPoints = (boolItems.length + amountSelects.length) * 2;
         let missedItems = [];
 
-        // ★の集計
-        boolRadios.forEach(radio => {
-            let itemElem = radio.closest('.diag-item');
+        // ★（はい／いいえ）の集計
+        boolItems.forEach(itemElem => {
             let itemName = itemElem.querySelector('.diag-item-header span').innerText;
-            if (radio.value === 'yes') {
+            let checkedRadio = itemElem.querySelector('input[type="radio"]:checked');
+            
+            if (checkedRadio && checkedRadio.value === 'yes') {
                 totalPoints += 2;
             } else {
                 missedItems.push(itemName);
             }
         });
 
-        // ◆の集計
+        // ◆（量や期間）の集計
         amountSelects.forEach(sel => {
             let itemName = sel.closest('.diag-item').querySelector('.diag-item-header span').innerText;
             let val = sel.value;
@@ -775,7 +776,7 @@
 
         let finalScore = Math.round((totalPoints / maxPoints) * 100);
         if (finalScore < 20) finalScore = 20;
-
+        if (finalScore > 100) finalScore = 100; // 念のため100点を超えないように制限
         let stars = "★★★★★";
         if (finalScore < 60) stars = "★★★☆☆";
         else if (finalScore < 80) stars = "★★★★☆";
