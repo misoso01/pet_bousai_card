@@ -752,7 +752,8 @@
         if (finalScore > 100) finalScore = 100;
         
         let stars = "★★★★★";
-        if (finalScore < 30) stars = "★★☆☆☆";        
+        if (finalScore < 20) stars = "★☆☆☆☆";
+        else if (finalScore < 40) stars = "★★☆☆☆";            
         else if (finalScore < 60) stars = "★★★☆☆";
         else if (finalScore < 80) stars = "★★★★☆";
         else if (finalScore >= 95) stars = "★★★★★";
