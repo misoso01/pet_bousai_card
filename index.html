@@ -89,7 +89,6 @@
             margin-bottom: 0;
         }
         
-        /* 診断スタイル */
         .diag-category {
             font-weight: bold;
             color: var(--primary);
@@ -151,7 +150,6 @@
         button.secondary { background-color: #95a5a6; }
         button.secondary:hover { background-color: #7f8c8d; }
 
-        /* 結果画面スタイル（カルテ風出力シート） */
         #result-section {
             display: none;
         }
@@ -209,7 +207,6 @@
             margin-bottom: 15px;
         }
         
-        /* チェックリスト用スタイル */
         .interactive-checklist {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -244,7 +241,7 @@
 <body>
 
 <div class="container">
-    <h1>犬・猫用ペット防災診断</h1>
+    <h1>犬・猫用 ペット防災診断</h1>
     <p class="subtitle">3ステップでペット防災をチェック</p>
 
     <form id="simpleBousaiForm">
@@ -327,7 +324,7 @@
 
         <div class="step-section" id="step2">
             <h2 class="step-title">STEP 2: 防災診断（約3分）</h2>
-            <p style="font-size: 0.82rem; color: #666; margin-bottom: 15px;">現在の備えやしつけの状況についてお答えください。（★：いいえ／はい、◆：量や期間）</p>
+            <p style="font-size: 0.82rem; color: #666; margin-bottom: 15px;">現在の備えやしつけの状況についてお答えください。</p>
 
             <div class="diag-category">優先順位1: 健康や命に関わるもの</div>
             
@@ -341,7 +338,7 @@
                         <option value="2週間分">2週間分</option>
                         <option value="3週間分">3週間分</option>
                         <option value="1か月分">1か月分</option>
-                        <option value="1か月分">1か月分より多い</option>
+                        <option value="1か月分より多い">1か月分より多い</option>
                     </select>
                 </div>
             </div>
@@ -355,7 +352,7 @@
                         <option value="2週間分">2週間分</option>
                         <option value="3週間分">3週間分</option>
                         <option value="1か月分">1か月分</option>
-                        <option value="1か月分">1か月分より多い</option>
+                        <option value="1か月分より多い">1か月分より多い</option>
                     </select>
                 </div>
             </div>
@@ -386,24 +383,23 @@
                         <option value="2週間分">2週間分</option>
                         <option value="3週間分">3週間分</option>
                         <option value="1か月分">1か月分</option>
-                        <option value="1か月分">1か月分より多い</option>
+                        <option value="1か月分より多い">1か月分より多い</option>
                     </select>
                 </div>
             </div>
-            <div class="diag-item" data-type="amount" data-key="d_toilet">
+            <div class="diag-item" data-type="amount" data-key="d_toilet_bag">
                 <div class="diag-item-header"><span>ビニール袋（排泄物処理など）</span></div>
                 <div class="select-sub">
-                    <select name="d_toilet" class="amount-select">
+                    <select name="d_toilet_bag" class="amount-select">
                         <option value="量は把握していない">量は把握していない</option>
                         <option value="1週間分">1週間分</option>
                         <option value="2週間分">2週間分</option>
                         <option value="3週間分">3週間分</option>
                         <option value="1か月分">1か月分</option>
-                        <option value="1か月分">1か月分より多い</option>
+                        <option value="1か月分より多い">1か月分より多い</option>
                     </select>
                 </div>
             </div>
-
             <div class="diag-item" data-type="bool" data-key="d_bowl">
                 <div class="diag-item-header">
                     <span>食器や水入れ</span>
@@ -417,7 +413,7 @@
             <div class="diag-category">優先順位2: ペットに関する情報</div>
             <div class="diag-item" data-type="bool" data-key="d_tel">
                 <div class="diag-item-header">
-                    <span>飼い主の連絡先・飼い主以外の緊急連作先の控え</span>
+                    <span>飼い主の連絡先・飼い主以外の緊急連絡先の控え</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_tel" value="no" checked> いいえ</label>
                         <label><input type="radio" name="d_tel" value="yes"> はい</label>
@@ -430,12 +426,9 @@
                     <div class="radio-group">
                         <label><input type="radio" name="d_petphoto" value="no" checked> いいえ</label>
                         <label><input type="radio" name="d_petphoto" value="yes"> はい</label>
-                        <label><input type="radio" name="d_petphoto" value="yes"> はい（スマホ）</label>
-                        <label><input type="radio" name="d_petphoto" value="yes"> はい（スマホ＆印刷写真）</label>
                     </div>
                 </div>
             </div>
-            
             <div class="diag-item" data-type="bool" data-key="d_photo">
                 <div class="diag-item-header">
                     <span>ペットと一緒に写った写真はお持ちですか</span>
@@ -445,7 +438,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="diag-item" data-type="bool" data-key="d_memo">
                 <div class="diag-item-header">
                     <span>ペットの健康情報メモ（ワクチン歴・かかりつけ医等）</span>
@@ -455,8 +447,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             <div class="diag-category">優先順位３: ペット用品</div>
             <div class="diag-item" data-type="bool" data-key="d_brush">
@@ -468,12 +458,12 @@
                     </div>
                 </div>
             </div>
-            <div class="diag-item" data-type="bool" data-key="d_towel">
+            <div class="diag-item" data-type="bool" data-key="d_towel_care">
                 <div class="diag-item-header">
                     <span>ウェットタオル・綿棒など（目や耳掃除用）</span>
                     <div class="radio-group">
-                        <label><input type="radio" name="d_towel" value="no" checked> いいえ</label>
-                        <label><input type="radio" name="d_towel" value="yes"> はい</label>
+                        <label><input type="radio" name="d_towel_care" value="no" checked> いいえ</label>
+                        <label><input type="radio" name="d_towel_care" value="yes"> はい</label>
                     </div>
                 </div>
             </div>
@@ -486,10 +476,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
             <div class="diag-item" data-type="bool" data-key="d_net">
                 <div class="diag-item-header">
                     <span>（猫飼育の方）屋外診察保護など、洗濯ネット</span>
@@ -501,49 +487,44 @@
             </div>
 
             <div class="diag-category">防災のための「しつけ」に関する備え</div>
-
-            <div class="diag-item" data-type="bool" data-category="training" data-key="d_train_crate">
+            <div class="diag-item" data-type="bool" data-key="d_train_crate">
                 <div class="diag-item-header">
                     <span>ケージやクレートの練習</span>
                     <div class="radio-group">
-                        <label><input type="radio" name="d_train_crate" value="no" checked> 家にない・使ったことがない</label>
-                        <label><input type="radio" name="d_train_crate" value="yes"> 家にある・入るのは苦手</label>
-                        <label><input type="radio" name="d_train_crate" value="yes"> 家にある・普段からつかっている</label>
+                        <label><input type="radio" name="d_train_crate" value="no" checked> なし・苦手</label>
+                        <label><input type="radio" name="d_train_crate" value="yes"> はい</label>
                     </div>
                 </div>
             </div>
-
-            <div class="diag-item" data-type="bool" data-category="training" data-key="d_train_sit">
+            <div class="diag-item" data-type="bool" data-key="d_train_sit">
                 <div class="diag-item-header">
                     <span>おすわり・まての練習</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_train_sit" value="no" checked> にがて</label>
-                        <label><input type="radio" name="d_train_sit" value="yes"> できるときできないときがある</label>
-                        <label><input type="radio" name="d_train_sit" value="yes"> 得意（知らない人や犬がいる中でもよくできる）</label>
-                    </div>
-                </div>
-            </div>           
-            <div class="diag-item" data-type="bool" data-category="training" data-key="d_fail">
-                <div class="diag-item-header">
-                    <span>知らない人・犬を怖がったり攻撃的になることはあるか</span>
-                    <div class="radio-group">
-                        <label><input type="radio" name="d_fail" value="no" checked> ある（人見知り、犬見知り）</label>
-                        <label><input type="radio" name="d_fail" value="yes"> ある（人や犬による）</label>
-                        <label><input type="radio" name="d_fail" value="yes"> ない（人も犬もにがてではない）</label>
+                        <label><input type="radio" name="d_train_sit" value="yes"> はい</label>
                     </div>
                 </div>
             </div>
-            <div class="diag-category">人用とペット用で共用できるもの</div>
-            <div class="diag-item" data-type="bool" data-key="d_towel">
+            <div class="diag-item" data-type="bool" data-key="d_fail">
                 <div class="diag-item-header">
-                    <span>タオルや毛布</span>
+                    <span>知らない人・犬を怖がったり攻撃的になることはあるか</span>
                     <div class="radio-group">
-                        <label><input type="radio" name="d_towel" value="no" checked> いいえ</label>
-                        <label><input type="radio" name="d_towel" value="yes"> はい</label>
+                        <label><input type="radio" name="d_fail" value="no" checked> ある</label>
+                        <label><input type="radio" name="d_fail" value="yes"> ない</label>
                     </div>
                 </div>
             </div>
 
+            <div class="diag-category">人用とペット用で共用できるもの</div>
+            <div class="diag-item" data-type="bool" data-key="d_towel_share">
+                <div class="diag-item-header">
+                    <span>タオルや毛布</span>
+                    <div class="radio-group">
+                        <label><input type="radio" name="d_towel_share" value="no" checked> いいえ</label>
+                        <label><input type="radio" name="d_towel_share" value="yes"> はい</label>
+                    </div>
+                </div>
+            </div>
             <div class="diag-item" data-type="bool" data-key="d_bag">
                 <div class="diag-item-header">
                     <span>ビニール袋、ポリ袋</span>
@@ -553,7 +534,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="diag-item" data-type="bool" data-key="d_wet">
                 <div class="diag-item-header">
                     <span>ウエットティッシュ</span>
@@ -563,7 +543,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="diag-item" data-type="bool" data-key="d_tp">
                 <div class="diag-item-header">
                     <span>トイレットペーパー</span>
@@ -573,18 +552,15 @@
                     </div>
                 </div>
             </div>
-
             <div class="diag-item" data-type="bool" data-key="d_tape">
                 <div class="diag-item-header">
-                    <span>ガムテープ・マジック（ケージ補修・段ボールハウス・ペット情報掲示など）</span>
+                    <span>ガムテープ・マジック</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_tape" value="no" checked> いいえ</label>
                         <label><input type="radio" name="d_tape" value="yes"> はい</label>
                     </div>
                 </div>
             </div>
-
-
             <div class="diag-item" data-type="bool" data-key="d_kairo">
                 <div class="diag-item-header">
                     <span>寒さ対策用品（カイロなど）</span>
@@ -594,10 +570,9 @@
                     </div>
                 </div>
             </div>
-
             <div class="diag-item" data-type="bool" data-key="d_cool">
                 <div class="diag-item-header">
-                    <span>暑さ対策用品（冷却マット・冷却グッズなど）</span>
+                    <span>暑さ対策用品（冷却マットなど）</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_cool" value="no" checked> いいえ</label>
                         <label><input type="radio" name="d_cool" value="yes"> はい</label>
@@ -623,7 +598,7 @@
 
             <div class="score-box-inline">
                 <div>
-                    <div style="font-size: 0.8rem; color: #444;">ペット防災力スコア</div>
+                    <div style="font-size: 0.8rem; color: #444;" id="resDateText">作成日：2026年08月03日</div>
                     <div style="font-size: 1.4rem; font-weight: bold; color: #2e7d32;" id="resScoreText">85点 (★★★★☆)</div>
                 </div>
             </div>
@@ -653,13 +628,11 @@
             </table>
 
             <div class="carte-section-title">2. 推奨物資量（ローリングストック）</div>
-            <table class="carte-table" id="outMaterialTable">
-                </table>
+            <table class="carte-table" id="outMaterialTable"></table>
 
             <div class="carte-section-title">3. 今すぐ行うべき改善ポイント（チェックリスト）</div>
             <p style="font-size: 0.78rem; color: #666; margin: 2px 0 6px 0;">準備できたらチェック☑を入れて管理できます。</p>
-            <div class="interactive-checklist" id="resChecklistContainer">
-                </div>
+            <div class="interactive-checklist" id="resChecklistContainer"></div>
         </div>
 
         <div class="no-print" style="text-align: center; margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
@@ -739,7 +712,7 @@
         });
         let allergyText = checkedAllergies.length > 0 ? checkedAllergies.join('、') : "特になし";
 
-// スコア集計（修正版）
+        // スコア集計
         const boolItems = document.querySelectorAll('#step2 .diag-item[data-type="bool"]');
         const amountSelects = document.querySelectorAll('#step2 .diag-item[data-type="amount"] select');
 
@@ -763,7 +736,7 @@
         amountSelects.forEach(sel => {
             let itemName = sel.closest('.diag-item').querySelector('.diag-item-header span').innerText;
             let val = sel.value;
-            if (val === '1か月分' || val === '3週間分' || val === '2週間分') {
+            if (val === '1か月分' || val === '3週間分' || val === '2週間分' || val === '1か月分より多い') {
                 totalPoints += 2;
             } else if (val === '1週間分') {
                 totalPoints += 1;
@@ -775,14 +748,16 @@
         });
 
         let finalScore = Math.round((totalPoints / maxPoints) * 100);
-        if (finalScore < 20) finalScore = 20;
-        if (finalScore > 100) finalScore = 100; // 念のため100点を超えないように制限
+        if (finalScore < 0) finalScore = 0;
+        if (finalScore > 100) finalScore = 100;
+        
         let stars = "★★★★★";
-        if (finalScore < 60) stars = "★★★☆☆";
+        if (finalScore < 30) stars = "★★☆☆☆";        
+        else if (finalScore < 60) stars = "★★★☆☆";
         else if (finalScore < 80) stars = "★★★★☆";
         else if (finalScore >= 95) stars = "★★★★★";
 
-        // 物資量計算 (1か月分目安のグラム数・kg数)
+        // 物資量計算
         let food1MonthGrams = dailyFood * 30;
         let food1MonthKg = (food1MonthGrams / 1000).toFixed(1);
         
@@ -808,7 +783,7 @@
         document.getElementById('outMedAllergy').innerText = `持病: ${med} ｜ アレルギー配慮: ${allergyText}`;
         document.getElementById('outFoodInfo').innerText = `${foodName} （1日 ${dailyFood}g）`;
 
-        // 推奨物資表の反映（1か月の総g数、2週間分の水を明記）
+        // 推奨物資表の反映
         document.getElementById('outMaterialTable').innerHTML = `
             <tr>
                 <th>推奨フード備蓄（1か月分）</th>
@@ -820,7 +795,7 @@
             </tr>
         `;
 
-        // 改善ポイントをチェックリスト形式（□ 項目名）で生成
+        // 改善ポイントをチェックリスト形式で生成
         const checklistContainer = document.getElementById('resChecklistContainer');
         checklistContainer.innerHTML = "";
 
