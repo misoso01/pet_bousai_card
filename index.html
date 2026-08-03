@@ -331,22 +331,8 @@
 
             <div class="diag-category">優先順位1: 健康や命に関わるもの</div>
             
-            <div class="diag-item" data-type="amount" data-key="d_food">
-                <div class="diag-item-header"><span>家においているフードの量（治療食含む）</span></div>
-                <div class="select-sub">
-                    <select name="d_food" class="amount-select">
-                        <option value="量は把握していない">量は把握していない</option>
-                        <option value="1週間分">1週間分</option>
-                        <option value="2週間分">2週間分</option>
-                        <option value="3週間分">3週間分</option>
-                        <option value="1か月分">1か月分</option>
-                        <option value="1か月分">1か月分より多い</option>
-                    </select>
-                </div>
-            </div>
-
             <div class="diag-item" data-type="amount" data-key="d_medicine">
-                <div class="diag-item-header"><span>持病の薬</span></div>
+                <div class="diag-item-header"><span>持病の薬・療法食</span></div>
                 <div class="select-sub">
                     <select name="d_medicine" class="amount-select">
                         <option value="量は把握していない">量は把握していない</option>
@@ -358,17 +344,103 @@
                     </select>
                 </div>
             </div>
+            <div class="diag-item" data-type="amount" data-key="d_food">
+                <div class="diag-item-header"><span>家においているフードの量</span></div>
+                <div class="select-sub">
+                    <select name="d_food" class="amount-select">
+                        <option value="量は把握していない">量は把握していない</option>
+                        <option value="1週間分">数日分</option>
+                        <option value="1週間分">1週間分</option>
+                        <option value="2週間分">2週間分</option>
+                        <option value="3週間分">3週間分</option>
+                        <option value="1か月分">1か月分</option>
+                        <option value="1か月分">1か月分より多い</option>
+                    </select>
+                </div>
+            </div>
+            <div class="diag-item" data-type="bool" data-key="d_carry">
+                <div class="diag-item-header">
+                    <span>キャリーバッグやケージ</span>
+                    <div class="radio-group">
+                        <label><input type="radio" name="d_carry" value="no" checked> いいえ</label>
+                        <label><input type="radio" name="d_carry" value="yes"> はい</label>
+                    </div>
+                </div>
+            </div>
+            <div class="diag-item" data-type="bool" data-key="d_lead">
+                <div class="diag-item-header">
+                    <span>予備の首輪やリード</span>
+                    <div class="radio-group">
+                        <label><input type="radio" name="d_carry" value="no" checked> いいえ</label>
+                        <label><input type="radio" name="d_carry" value="yes"> はい</label>
+                    </div>
+                </div>
+            </div>
+            <div class="diag-item" data-type="amount" data-key="d_toilet">
+                <div class="diag-item-header"><span>ペットシーツ</span></div>
+                <div class="select-sub">
+                    <select name="d_toilet" class="amount-select">
+                        <option value="量は把握していない">量は把握していない</option>
+                        <option value="1週間分">1週間分</option>
+                        <option value="2週間分">2週間分</option>
+                        <option value="3週間分">3週間分</option>
+                        <option value="1か月分">1か月分</option>
+                        <option value="1か月分">1か月分より多い</option>
+                    </select>
+                </div>
+            </div>
+            <div class="diag-item" data-type="amount" data-key="d_toilet">
+                <div class="diag-item-header"><span>ビニール袋（排泄物処理など）</span></div>
+                <div class="select-sub">
+                    <select name="d_toilet" class="amount-select">
+                        <option value="量は把握していない">量は把握していない</option>
+                        <option value="1週間分">1週間分</option>
+                        <option value="2週間分">2週間分</option>
+                        <option value="3週間分">3週間分</option>
+                        <option value="1か月分">1か月分</option>
+                        <option value="1か月分">1か月分より多い</option>
+                    </select>
+                </div>
+            </div>
 
+            <div class="diag-item" data-type="bool" data-key="d_bowl">
+                <div class="diag-item-header">
+                    <span>食器や水入れ</span>
+                    <div class="radio-group">
+                        <label><input type="radio" name="d_bowl" value="no" checked> いいえ</label>
+                        <label><input type="radio" name="d_bowl" value="yes"> はい</label>
+                    </div>
+                </div>
+            </div>
 
+            <div class="diag-category">優先順位2: ペットに関する情報</div>
             <div class="diag-item" data-type="bool" data-key="d_photo">
                 <div class="diag-item-header">
-                    <span>写真（ペットのみ・飼い主と一緒）</span>
+                    <span>飼い主の連絡先・飼い主以外の緊急連作先の控え</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_photo" value="no" checked> いいえ</label>
-                        <label><input type="radio" name="d_photo" value="yes"> はい：ペットのみ（スマホ）</label>
-                        <label><input type="radio" name="d_photo" value="yes"> はい：ペット・飼い主と一緒（スマホ）</label>
-                        <label><input type="radio" name="d_photo" value="yes"> はい：ペットのみ（スマホ＆印刷写真）</label>
-                        <label><input type="radio" name="d_photo" value="yes"> はい：ペット・飼い主と一緒（スマホ＆印刷写真）</label>
+                        <label><input type="radio" name="d_photo" value="yes"> はい</label>
+                    </div>
+                </div>
+            </div>
+            <div class="diag-item" data-type="bool" data-key="d_photo">
+                <div class="diag-item-header">
+                    <span>ペットの写真をお持ちですか</span>
+                    <div class="radio-group">
+                        <label><input type="radio" name="d_photo" value="no" checked> いいえ</label>
+                        <label><input type="radio" name="d_photo" value="yes"> はい</label>
+                        <label><input type="radio" name="d_photo" value="yes"> はい（スマホ）</label>
+                        <label><input type="radio" name="d_photo" value="yes"> はい（スマホ＆印刷写真）</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="diag-item" data-type="bool" data-key="d_photo">
+                <div class="diag-item-header">
+                    <span>ペットと一緒に写った写真はお持ちですか</span>
+                    <div class="radio-group">
+                        <label><input type="radio" name="d_photo" value="no" checked> いいえ</label>
+                        <label><input type="radio" name="d_photo" value="yes"> はい</label>
                     </div>
                 </div>
             </div>
@@ -384,57 +456,29 @@
             </div>
 
 
-            <div class="diag-category">優先順位2: ペット用品</div>
 
-            <div class="diag-item" data-type="bool" data-key="d_carry">
-                <div class="diag-item-header">
-                    <span>キャリーバッグやケージ</span>
-                    <div class="radio-group">
-                        <label><input type="radio" name="d_carry" value="no" checked> いいえ</label>
-                        <label><input type="radio" name="d_carry" value="yes"> はい</label>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="diag-item" data-type="amount" data-key="d_toilet">
-                <div class="diag-item-header"><span>トイレ用品（ペットシーツ・トイレ砂）</span></div>
-                <div class="select-sub">
-                    <select name="d_toilet" class="amount-select">
-                        <option value="量は把握していない">量は把握していない</option>
-                        <option value="1週間分">1週間分</option>
-                        <option value="2週間分">2週間分</option>
-                        <option value="3週間分">3週間分</option>
-                        <option value="1か月分">1か月分</option>
-                        <option value="1か月分">1か月分より多い</option>
-                    </select>
-                </div>
-            </div>
-
+            <div class="diag-category">優先順位３: ペット用品</div>
             <div class="diag-item" data-type="bool" data-key="d_brush">
                 <div class="diag-item-header">
-                    <span>ブラシ</span>
+                    <span>ブラシ・タオル</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_brush" value="no" checked> いいえ</label>
                         <label><input type="radio" name="d_brush" value="yes"> はい</label>
                     </div>
                 </div>
             </div>
-
-
-            <div class="diag-item" data-type="bool" data-key="d_bowl">
+            <div class="diag-item" data-type="bool" data-key="d_brush">
                 <div class="diag-item-header">
-                    <span>食器や水入れ</span>
+                    <span>ウェットタオル・綿棒など（目や耳掃除用）</span>
                     <div class="radio-group">
-                        <label><input type="radio" name="d_bowl" value="no" checked> いいえ</label>
-                        <label><input type="radio" name="d_bowl" value="yes"> はい</label>
+                        <label><input type="radio" name="d_brush" value="no" checked> いいえ</label>
+                        <label><input type="radio" name="d_brush" value="yes"> はい</label>
                     </div>
                 </div>
             </div>
-
             <div class="diag-item" data-type="bool" data-key="d_toy">
                 <div class="diag-item-header">
-                    <span>おもちゃ</span>
+                    <span>お気に入りのおもちゃ</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_toy" value="no" checked> いいえ</label>
                         <label><input type="radio" name="d_toy" value="yes"> はい</label>
@@ -442,23 +486,12 @@
                 </div>
             </div>
 
-            <div class="diag-item" data-type="amount" data-key="d_treat">
-                <div class="diag-item-header"><span>ペット用おやつ</span></div>
-                <div class="select-sub">
-                    <select name="d_treat" class="amount-select">
-                        <option value="量は把握していない">量は把握していない</option>
-                        <option value="1週間分">1週間分</option>
-                        <option value="2週間分">2週間分</option>
-                        <option value="3週間分">3週間分</option>
-                        <option value="1か月分">1か月分</option>
-                        <option value="1か月分">1か月分より多い</option>
-                    </select>
-                </div>
-            </div>
+
+
 
             <div class="diag-item" data-type="bool" data-key="d_net">
                 <div class="diag-item-header">
-                    <span>洗濯ネット（猫の保定用）</span>
+                    <span>（猫飼育の方）屋外診察保護など、洗濯ネット</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_net" value="no" checked> いいえ</label>
                         <label><input type="radio" name="d_net" value="yes"> はい</label>
@@ -490,31 +523,6 @@
                 </div>
             </div>
             <div class="diag-category">人用とペット用で共用できるもの</div>
-
-            <div class="diag-item" data-type="amount" data-key="d_water">
-                <div class="diag-item-header"><span>水（飲み水+生活用）</span></div>
-                <div class="select-sub">
-                    <select name="d_water" class="amount-select">
-                        <option value="量は把握していない">量は把握していない</option>
-                        <option value="1週間分">1週間分</option>
-                        <option value="2週間分">2週間分</option>
-                        <option value="3週間分">3週間分</option>
-                        <option value="1か月分">1か月分</option>
-                        <option value="1か月分">1か月分より多い</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="diag-item" data-type="bool" data-key="d_firstaid">
-                <div class="diag-item-header">
-                    <span>救急セット</span>
-                    <div class="radio-group">
-                        <label><input type="radio" name="d_firstaid" value="no" checked> いいえ</label>
-                        <label><input type="radio" name="d_firstaid" value="yes"> はい</label>
-                    </div>
-                </div>
-            </div>
-
             <div class="diag-item" data-type="bool" data-key="d_towel">
                 <div class="diag-item-header">
                     <span>タオルや毛布</span>
@@ -557,7 +565,7 @@
 
             <div class="diag-item" data-type="bool" data-key="d_tape">
                 <div class="diag-item-header">
-                    <span>ガムテープ</span>
+                    <span>ガムテープ・マジック（ケージ補修・段ボールハウス・ペット情報掲示など）</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_tape" value="no" checked> いいえ</label>
                         <label><input type="radio" name="d_tape" value="yes"> はい</label>
@@ -565,29 +573,10 @@
                 </div>
             </div>
 
-            <div class="diag-item" data-type="bool" data-key="d_magic">
-                <div class="diag-item-header">
-                    <span>マジック</span>
-                    <div class="radio-group">
-                        <label><input type="radio" name="d_magic" value="no" checked> いいえ</label>
-                        <label><input type="radio" name="d_magic" value="yes"> はい</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="diag-item" data-type="bool" data-key="d_paper">
-                <div class="diag-item-header">
-                    <span>新聞紙</span>
-                    <div class="radio-group">
-                        <label><input type="radio" name="d_paper" value="no" checked> いいえ</label>
-                        <label><input type="radio" name="d_paper" value="yes"> はい</label>
-                    </div>
-                </div>
-            </div>
 
             <div class="diag-item" data-type="bool" data-key="d_kairo">
                 <div class="diag-item-header">
-                    <span>カイロ</span>
+                    <span>寒さ対策用品（カイロなど）</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_kairo" value="no" checked> いいえ</label>
                         <label><input type="radio" name="d_kairo" value="yes"> はい</label>
@@ -597,7 +586,7 @@
 
             <div class="diag-item" data-type="bool" data-key="d_cool">
                 <div class="diag-item-header">
-                    <span>瞬間冷却剤</span>
+                    <span>暑さ対策用品（冷却マット・冷却グッズなど）</span>
                     <div class="radio-group">
                         <label><input type="radio" name="d_cool" value="no" checked> いいえ</label>
                         <label><input type="radio" name="d_cool" value="yes"> はい</label>
